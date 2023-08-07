@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import json
 import sys
 import os
@@ -10,7 +11,8 @@ def search_by_tags(tags):
 
     search_tag = tags
     for i in db:
-        if search_tag in i['tags']:
+        if set(search_tag).issubset(i['tags']):
+
             print('Name \t\t-> ',i['name'])
             print('Path \t\t-> ',i['loc'])
             print('Other tags\t -> ',i['tags'])
@@ -40,14 +42,17 @@ def add_paper():
 
 
 def usage():
-    print('Instruction to use')
+    print('This tool allows you to manage your collection of papers or documents in the PC\n*****************\n')
+    print('The following are the arguments that are needed for the tool to be used')
+    print('\n--search or -s: is compulsory if we want to search of the papers')
+    print('--add or -a: is used to add a document to the collection. It will prompt you the inputs where in you need to enter the details, after which the paper will be stored successfully')
     
 
 
 if __name__=='__main__':
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "h:s:n:u:t:a", ["help","search","name","doi","tags","add"])
+        opts, args = getopt.getopt(sys.argv[1:], "h:s:u:t:a", ["help","search","doi","tags","add"])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -57,7 +62,8 @@ if __name__=='__main__':
     tags=[]
     for o,a in opts:
         if o in ('-t','--tags'):
-            tags = a
+            tags = a.split(',')
+
 
     for o,a in opts:
         if o in ('--search','-s'):
@@ -69,5 +75,8 @@ if __name__=='__main__':
                 print("Paper successfully added!")
             else:
                 print("ERROR: Problem adding the paper, Please try again or check the 'db.json' file!")
+
+
+
 
 
