@@ -79,7 +79,7 @@ def usage():
     print('\n--search or -s: is compulsory if we want to search of the papers')
     print('--add or -a: is used to add a document to the collection. It will prompt you the inputs where in you need to enter the details, after which the paper will be stored successfully')
     print('--change or -c: is used to change the tags of an existing paper in the database. It will prompt you the inputs but keep the DOI handy')
-   print('--list or -l: lists the name of papers present in the entire data base') 
+    print('--list or -l: lists the name of papers present in the entire data base') 
 
 
 if __name__=='__main__':
