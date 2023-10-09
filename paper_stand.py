@@ -63,6 +63,15 @@ def add_paper():
 
     return True
 
+def list_papers():
+    counter = 0
+    with open('db.json','r') as db_file:
+        db = json.load(db_file)
+    for i in db:
+        print(counter+1,'. ',i['name'])
+        counter += 1
+    print("Total numer of papers ->",counter)
+
 
 def usage():
     print('This tool allows you to manage your collection of papers or documents in the PC\n*****************\n')
@@ -70,13 +79,13 @@ def usage():
     print('\n--search or -s: is compulsory if we want to search of the papers')
     print('--add or -a: is used to add a document to the collection. It will prompt you the inputs where in you need to enter the details, after which the paper will be stored successfully')
     print('--change or -c: is used to change the tags of an existing paper in the database. It will prompt you the inputs but keep the DOI handy')
-    
+   print('--list or -l: lists the name of papers present in the entire data base') 
 
 
 if __name__=='__main__':
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "h:s:u:t:a:c", ["help","search","doi","tags","add","change"])
+        opts, args = getopt.getopt(sys.argv[1:], "h:s:u:t:a:c:l", ["help","search","doi","tags","add","change","list"])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -97,6 +106,8 @@ if __name__=='__main__':
         if o in ('--change','-c'):
             if change_tags():
                 print("Tags changed!")
+        if o in ('--list','l'):
+            list_papers()
         if o in ('--add','-a'):
             if add_paper():
                 print("Paper successfully added!")
